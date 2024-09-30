@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'embed_video',
     'desk',
+    'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
