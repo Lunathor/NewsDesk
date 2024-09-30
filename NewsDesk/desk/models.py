@@ -86,7 +86,6 @@ class Image(models.Model):
     post = ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Пост')
 
 
-
 class Video(models.Model):
     """
         Модель видеороликов хранящее информацию о ссылках на ролики,
