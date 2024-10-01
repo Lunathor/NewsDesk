@@ -82,7 +82,7 @@ class Image(models.Model):
         verbose_name = 'Изображение'
         verbose_name_plural = 'Изображения'
 
-    file = models.ImageField(upload_to='board/files/images/', verbose_name="Изображение")
+    file = models.ImageField(upload_to='desk/files/images/', verbose_name="Изображение")
     post = ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Пост')
 
 

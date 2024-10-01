@@ -1,0 +1,58 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+{% load custom_tags %}
+{% load static %}
+
+{% block title %}
+    Посты
+{% endblock title %}
+
+{% block name %}
+    Посты
+{% endblock name %}
+
+{% block content %}
+
+    {% if post %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                    <i class="fas fa-info-circle"></i> {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                {% for p in post %}
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Post image-->
+                            {% if p|image_check %}
+                                <img class="card-img-top" src={{p|preview}} />
+                            {% else %}
+                                <img class="card-img-top" src={% static 'images/Empty.jpg'%} />
+                            {% endif %}
+                            <!-- Post details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Post name-->
+                                    <h5 class="fw-bolder">{{ p.preview }}</h5>
+                                    <!-- Post category-->
+                                    {{ p.show_category }}
+                                </div>
+                            </div>
+                            <!-- Post actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <a class="btn btn-outline-dark mt-auto" href="{% url 'PostDetail' pk=p.id %}">Детали</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock content %}

@@ -1,0 +1,86 @@
+{% extends 'flatpages/default.html' %}
+
+{% load embed_video_tags %}
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block title %}
+    Пост
+{% endblock title %}
+
+{% block name %}
+    {{ post.title }}
+{% endblock name %}
+
+{% block content %}
+
+    {% if post|image_check %}
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                {% for img in post|get_image %}
+                    <img style="max-width: 500px" src={{img.file.url}} />
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="container px-4 px-lg-4 mt-5">
+        {{ post.text|linebreaks }}
+    </div>
+
+    {% if post|video_check %}
+        <div class="container px-4 px-lg-5 mt-5 justify-content-center">
+            <div class="row gx-4 gx-lg-3 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
+                {% for vid in post|get_video %}
+                    {% video vid.url "426x240" %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <header class="bg-dark mt-5">
+        <div class="container px-4 px-lg-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">
+                    Комментарии
+                </h1>
+            </div>
+        </div>
+    </header>
+
+    {% if user_verification %}
+        <form method="post">
+            <div class="container px-4 px-lg-5 mt-5 justify-content-center">
+                {% csrf_token %}
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 mt-3 justify-content-center">
+                    <textarea placeholder="Оставить комментарий..." name="text" style="height: 200px; width: 400px; outline: 3px lightgrey solid"></textarea>
+                </div>
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 mt-3 justify-content-center">
+                    <button type="submit">Отправить</button>
+                </div>
+            </div>
+        </form>
+    {% endif %}
+
+    <div class="container px-4 px-lg-5 mt-5 justify-content-center">
+        {% for comment in comments %}
+            {% if comment.confirmed %}
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 mt-3 justify-content-center">
+                    <div class="card h-100" style="height: 200px; width: 1000px; outline: 3px lightgrey solid;">
+                        <p>
+                            Пользователь:
+                            {{ comment.author }}
+                        </p>
+                        <p>
+                            {{ comment.text }}
+                        </p>
+                        <p>
+                            {{ comment.time_in }}
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+{% endblock content %}
