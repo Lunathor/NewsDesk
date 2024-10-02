@@ -1,0 +1,103 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+    Личный кабинет
+{% endblock title %}
+
+{% block name %}
+    Личный кабинет
+{% endblock name %}
+
+{% block content %}
+
+    <div class="container px-4 px-lg-5 mt-1">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <p>Новостная рассылка:</p>
+            {% if user.news_subscription %}
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="unsubscribe" value="{{ user.id }}"/>
+                    <input type="submit" class="btn btn-outline-dark mt-auto" value="Отписаться">
+                </form>
+            {% else %}
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="subscribe" value="{{ user.id }}"/>
+                    <input type="submit" class="btn btn-outline-dark mt-auto" value="Подписаться">
+                </form>
+            {% endif %}
+        </div>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 mt-1 justify-content-center">
+            <p>Уведомления об откликах:</p>
+            {% if user.user_response %}
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="response_false" value="{{ user.id }}"/>
+                    <input type="submit" class="btn btn-outline-dark mt-auto" value="Не получить">
+                </form>
+            {% else %}
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="response_true" value="{{ user.id }}"/>
+                    <input type="submit" class="btn btn-outline-dark mt-auto" value="Получать">
+                </form>
+            {% endif %}
+        </div>
+        {% if user.is_staff %}
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 mt-1 justify-content-center">
+                <a class="btn btn-outline-dark mt-auto" href="{% url 'newsletter'  %}">Новостная рассылка</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <header class="bg-dark py-1 mt-2">
+        <div class="container px-4 px-lg-5 ">
+            <div class="text-center text-white">
+                <h1 class="display-6 fw-bolder">
+                    Комментарии
+                </h1>
+            </div>
+        </div>
+    </header>
+
+    <div class="container px-4 px-lg-5 mt-5 justify-content-center" xmlns="http://www.w3.org/1999/html">
+        {% for post in posts %}
+            {% if post.id|have_comments %}
+                {{ post.preview }}
+                {% for comm in comments %}
+                    {% if comm.post == post and not comm.confirmed %}
+                            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 mt-3 justify-content-center">
+                                <div class="card h-100" style="height: 200px; width: 1000px; outline: 3px lightgrey solid;">
+                                    <p>
+                                        Пользователь:
+                                        {{ comm.author }}
+                                    </p>
+                                    <p>
+                                        {{ comm.text }}
+                                    </p>
+                                    <p>
+                                        {{ comm.time_in }}
+                                    </p>
+                                    <p>
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="confirm" value="{{ comm.id }}"/>
+                                            <input type="submit" class="btn btn-success" value="Утвердить">
+                                        </form>
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="delete" value="{{ comm.id }}"/>
+                                            <input type="submit" class="btn btn-danger" value="Удалить">
+                                        </form>
+                                    </p>
+                                </div>
+                            </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </div>
+
+{% endblock content %}

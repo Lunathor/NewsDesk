@@ -10,4 +10,7 @@ urlpatterns = [
     path('post/delete/<int:pk>/', PostDeleteView.as_view(), name='post_delete'),
     path('delete-image/<int:pk>/', delete_image, name='delete_image'),
     path('delete-video/<int:pk>/', delete_video, name='delete_video'),
+    path('personal/', PersonalOfficeView.as_view(), name='personal'),
+    path('verify_otp/<int:user_id>/', verify, name='verify_otp'),
+    path('verify_otp/', repeat_verify, name='repeat_verify'),
 ]
