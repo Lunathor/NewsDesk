@@ -222,7 +222,7 @@ class PersonalOfficeView(CustomLoginRequiredMixin, ListView):
 
 def logout_view(request):
     logout(request)
-    return redirect('/')
+    return redirect('PostList')
 
 
 def register(request):
@@ -274,7 +274,7 @@ def verify(request, user_id=None):
             user.save()
             login(request, user)
             
-            return redirect('/post/')
+            return redirect('/')
         else:
             msg = 'Пожалуйста проверьте правильность написания кода'
             return render(request, 'registration/verify_otp.html', {'error': msg, 'user': user})

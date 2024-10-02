@@ -27,6 +27,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 SITE_ID = 1
+SITE_URL = 'http://127.0.0.1:8000'
 # Application definition
 
 INSTALLED_APPS = [
@@ -107,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
@@ -129,15 +130,16 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = 'desk.User'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = "example@yandex.ru"
-EMAIL_HOST_PASSWORD = "iliezvcovrxqizez"
+EMAIL_HOST_USER = "HoneyLunathor@yandex.com"
+EMAIL_HOST_PASSWORD = "eljwwkjsdrkbtllx"
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
-DEFAULT_FROM_EMAIL = "example@yandex.ru"
+DEFAULT_FROM_EMAIL = "HoneyLunathor@yandex.com"
