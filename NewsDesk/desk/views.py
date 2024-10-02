@@ -222,7 +222,7 @@ class PersonalOfficeView(CustomLoginRequiredMixin, ListView):
 
 def logout_view(request):
     logout(request)
-    return redirect('/post/')
+    return redirect('/')
 
 
 def register(request):
