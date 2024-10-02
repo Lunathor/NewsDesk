@@ -1,0 +1,31 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+    Верификация
+{% endblock title %}
+
+{% block name %}
+    Верификация
+{% endblock name %}
+
+{% block content %}
+    {% if error %}
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {{ error }}
+        </div>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 mt-3 justify-content-center">
+            <p>Введите код отправленный на почту {{ user|censor_mail }}:</p>
+        </div>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 mt-3 justify-content-center">
+            <input type="text" name="email_otp" placeholder="Код подтверждения" required>
+        </div>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 mt-3 justify-content-center">
+            <button type="submit">Подтвердить</button>
+        </div>
+    </form>
+{% endblock content %}
