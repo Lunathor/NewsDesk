@@ -1,0 +1,21 @@
+{% extends 'flatpages/default.html' %}}
+
+{% block title %}
+    Удаление поста
+{% endblock title %}
+
+{% block name %}
+    Удаление поста
+{% endblock name %}
+
+{% block content %}
+    <div class="container px-4 px-lg-5 mt-5 justify-content-center">
+        <div class="row gx-4 gx-lg-3 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
+            <form action="" method="post">
+                {% csrf_token %}
+                <p>Вы уверены, что хотите удалить пост: "{{ object }}"?</p>
+                <input type="submit" value="Delete" />
+            </form>
+        </div>
+    </div>
+{% endblock content %}

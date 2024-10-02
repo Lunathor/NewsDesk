@@ -1,0 +1,141 @@
+{% extends 'flatpages/default.html' %}
+
+
+{% block title %}
+    Редактирование поста
+{% endblock title %}
+
+{% block name %}
+    Редактирование поста
+{% endblock name %}
+
+{% block content %}
+<form enctype="multipart/form-data" class="container" method="post" id="post_form">
+    {% csrf_token %}
+    <div class="card">
+        <div class="card-header card-header-secondary">
+            <h4 class="card-title">Добавить пост</h4>
+        </div>
+        {% for field in form %}
+            <div class="form-group card-body">
+                <label>{{field.label}}</label>
+                {% if field.field.required %}
+                    <span style="color: red;" class="required">*</span>
+                {% endif %}
+
+                {{field}}
+                {% if field.help_text %}
+                    <small style="color: grey">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                    <p style="color: red">{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+    {% with named_formsets.images as formset %}
+        {{ formset.management_form }}
+        <script type="text/html" id="images-template">
+            <tr id="images-__prefix__" class= hide_all>
+                {% for fields in formset.empty_form.hidden_fields %}
+                    {{ fields }}
+                {% endfor %}
+
+                {% for fields in formset.empty_form.visible_fields %}
+                    <td>{{fields}}</td>
+                {% endfor %}
+            </tr>
+        </script>
+        <div class="table-responsive card mt-4">
+            <div class="card-header card-header-secondary">
+                <h4 class="card-title">Добавить изображение</h4>
+            </div>
+            <table class="table card-body">
+                <thead class="text-secondary">
+                    <th>Изображение <span style="color: red;" class="required">*</span></th>
+                    <th>Удаление</th>
+                </thead>
+                <tbody id="item-images">
+                    {% for error in formset.non_form_errors %}
+                        <span style="color: red">{{ error }}</span>
+                    {% endfor %}
+                    {% for formss in formset %}
+                        {{ formss.management_form }}
+                        <tr id="images-{{ forloop.counter0 }}" class= hide_all>
+                            {{ formss.id }}
+                            {% for field in formss.visible_fields %}
+                                <td>
+                                    {{field}}
+                                    {% for error in field.errors %}
+                                        <span style="color: red">{{ error }}</span>
+                                    {% endfor %}
+                                </td>
+                            {% endfor %}
+                            {% if formss.instance.pk %}
+                                <td>
+                                    <a class="btn btn-danger" href="{% url 'delete_image' formss.instance.pk %}">Удалить</a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="#" id="add-image-button" class="btn btn-secondary add-images">Добавить</a>
+        </div>
+    {% endwith %}
+    {% with named_formsets.video as formset %}
+        {{ formset.management_form }}
+        <script type="text/html" id="video-template">
+            <tr id="video-__prefix__" class= hide_all>
+                {% for fields in formset.empty_form.hidden_fields %}
+                    {{ fields }}
+                {% endfor %}
+
+                {% for fields in formset.empty_form.visible_fields %}
+                    <td>{{fields}}</td>
+                {% endfor %}
+            </tr>
+        </script>
+        <div class="table-responsive card mt-4">
+            <div class="card-header card-header-secondary">
+                <h4 class="card-title">Добавить видео</h4>
+            </div>
+            <table class="table card-body">
+                <thead class="text-secondary">
+                    <th>Видео <span style="color: red;" class="required">*</span></th>
+                    <th>Удаление?</th>
+                </thead>
+                <tbody id="item-video">
+                    {% for error in formset.non_form_errors %}
+                        <span style="color: red">{{ error }}</span>
+                    {% endfor %}
+                    {% for formss in formset %}
+                        {{ formss.management_form }}
+                        <tr id="video-{{ forloop.counter0 }}" class= hide_all>
+                            {{ formss.id }}
+                            {% for field in formss.visible_fields %}
+                                <td>
+                                    {{field}}
+                                    {% for error in field.errors %}
+                                        <span style="color: red">{{ error }}</span>
+                                    {% endfor %}
+                                </td>
+                            {% endfor %}
+                            {% if formss.instance.pk %}
+                                <td>
+                                    <a class="btn btn-danger" href="{% url 'delete_video' formss.instance.pk %}">Удалить</a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="#" id="add-video-button" class="btn btn-secondary add-video">Добавить</a>
+        </div>
+    {% endwith %}
+        <div class="form-group">
+            <button type="submit" class="btn btn-secondary btn-block">Подтвердить</button>
+        </div>
+</form>
+
+{% endblock content %}
