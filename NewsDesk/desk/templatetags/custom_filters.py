@@ -50,6 +50,7 @@ def get_video(value: Post) -> list[Video]:
     """
     return Video.objects.filter(post=value.id).all()
 
+
 @register.filter
 def censor_mail(value: User) -> str:
     email = value.email
@@ -67,6 +68,7 @@ def censor_mail(value: User) -> str:
             before_at = before_at + e
 
     return before_at.replace(before_at[2:], '*' * len(before_at[2:])) + after_at
+
 
 @register.filter
 def have_comments(pk: int) -> bool:

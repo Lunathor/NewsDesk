@@ -1,0 +1,59 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+    Регистрация
+{% endblock title %}
+
+{% block name %}
+    Регистрация
+{% endblock name %}
+
+{% block content %}
+
+    {% if msg %}
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {{ msg }}
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <p>Имя пользователя:</p>
+                <input type="text" name="username" placeholder="username" required>
+            </div>
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 mt-3 justify-content-center">
+                <p>Почта:</p>
+                <input type="email" name="email" placeholder="e-mail" required>
+            </div>
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 mt-3 justify-content-center">
+                <p>Пароль:</p>
+                <input type="password" name="password1" placeholder="password-1" required>
+            </div>
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 mt-3 justify-content-center">
+                <p>Повторный пароль:</p>
+                <input type="password" name="password2" placeholder="password-2" required>
+            </div>
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 mt-3 justify-content-center">
+                <p>Новостная подписка:</p>
+                <input type="checkbox" name="news_subscription" checked>
+            </div>
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 mt-3 justify-content-center">
+                <button type="submit">Регистрация</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="container px-4 px-lg-5 mt-5 justify-content-center">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 mt-3 justify-content-center">
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                    <p> Уже есть аккаунт?</p>
+                    <a class="btn btn-outline-dark mt-auto" href="{% url 'login' %}">Войти</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,30 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+    Регистрация
+{% endblock title %}
+
+{% block name %}
+    Регистрация
+{% endblock name %}
+
+{% block content %}
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="container px-4 px-lg-5 mt-5 center-block">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <p>Заголовок:</p>
+                <input type="text" name="msg_title" placeholder="Шок! Танки теперь хилят, а хилы танчат" style="width: 400px" required>
+            </div>
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 mt-3 justify-content-center">
+                <p>Текст:</p>
+                <textarea placeholder="Да ладно, это шутка! Танки теперь дамажат..." name="msg_text" style="height: 200px; width: 400px; outline: 3px lightgrey solid" required></textarea>
+            </div>
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 mt-3 justify-content-center">
+                <button type="submit">Сделать рассылку</button>
+            </div>
+        </div>
+    </form>
+
+{% endblock content %}
