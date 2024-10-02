@@ -20,7 +20,7 @@
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
             <div class="container">
-                <a class="navbar-brand" href="">News Desk</a>
+                <a class="navbar-brand" href="{% url 'PostList' %}">News Desk</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false"
@@ -30,27 +30,19 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                    <ul class="navbar-nav ml-auto">
                        <li class="nav-item active">
-                           <a class="nav-link" href="">Home
+                           <a class="nav-link" href="{% url 'PostList' %}">Home
                                <span class="sr-only"></span>
                            </a>
                        </li>
                        <li class="nav-item">
-                           <a class="nav-link" href="">Search</a>
+                           <a class="nav-link" href="{% url 'login' %}">Login</a>
                        </li>
                        <li class="nav-item">
-                           <a class="nav-link" href="">Login</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="">Sign Up</a>
+                           <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
                        </li>
                        <li class="nav-item">
                            {% if perms.NewsDesk.add_post %}
-                           <a class="nav-link" href="">Create News</a>
-                           {% endif %}
-                       </li>
-                       <li class="nav-item">
-                           {% if perms.NewsDesk.add_post %}
-                           <a class="nav-link" href="">Create Article</a>
+                           <a class="nav-link" href="">Create Post</a>
                            {% endif %}
                        </li>
                        <li class="nav-item">

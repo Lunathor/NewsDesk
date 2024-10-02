@@ -14,4 +14,8 @@ urlpatterns = [
     path('verify_otp/<int:user_id>/', verify, name='verify_otp'),
     path('verify_otp/', repeat_verify, name='repeat_verify'),
     path('newsletter/', newsletter, name='newsletter'),
+    path('user/', include('django.contrib.auth.urls')),
+    path('register/', register, name='register'),
+    path('user/logout/', logout_view, name='logout'),
+    path('user/login/', logout_view, name='login'),
 ]
