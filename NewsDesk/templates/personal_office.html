@@ -52,7 +52,10 @@
         {% endif %}
     </div>
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 mt-1 justify-content-center">
-        <a class="btn btn-outline-dark mt-auto" href="{% url 'logout'  %}">Выход</a>
+        <form action="{% url 'logout' %}" method="post" >
+            {% csrf_token %}
+            <input class="btn btn-outline-dark mt-auto" type="submit" value="Выход">
+        </form>
     </div>
 
     <header class="bg-dark py-1 mt-2">
