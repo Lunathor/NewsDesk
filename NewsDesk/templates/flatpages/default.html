@@ -42,12 +42,7 @@
                        </li>
                        <li class="nav-item">
                            {% if perms.NewsDesk.add_post %}
-                           <a class="nav-link" href="">Create Post</a>
-                           {% endif %}
-                       </li>
-                       <li class="nav-item">
-                           {% if user.is_authenticated %}
-                           <a class="nav-link" href="">Subscriptions</a>
+                           <a class="nav-link" href="{% url 'post_create' %}">Create Post</a>
                            {% endif %}
                        </li>
                    </ul>
