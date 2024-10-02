@@ -13,4 +13,5 @@ urlpatterns = [
     path('personal/', PersonalOfficeView.as_view(), name='personal'),
     path('verify_otp/<int:user_id>/', verify, name='verify_otp'),
     path('verify_otp/', repeat_verify, name='repeat_verify'),
+    path('newsletter/', newsletter, name='newsletter'),
 ]
